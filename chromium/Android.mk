@@ -29,14 +29,34 @@ LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := PRESIGNED
 
-ifeq ($(TARGET_IS_64_BIT),true)
+if [[ $ANDROID_PROMPT_PREFIX == *arm* ]]; then
+    ARCH=arm
+fi
+
+if [[ $ANDROID_PROMPT_PREFIX == *arm64* ]]; then
+    ARCH=arm64
+fi
+
+if [[ $ANDROID_PROMPT_PREFIX == *x86* ]]; then
+    ARCH=x86
+fi
+
+ifeq (\$(ARCH),arm64)
 TARGET_ARCH_ABI := arm64-v8a
 TARGET_LIB_DIR := lib64
 TARGET_LIB_ARM_DIR := arm64
-else
+endif
+
+ifeq (\$(ARCH),arm)
 TARGET_ARCH_ABI := armeabi-v7a
 TARGET_LIB_DIR := lib
 TARGET_LIB_ARM_DIR := arm
+endif
+
+ifeq (\$(ARCH),x86)
+TARGET_ARCH_ABI := x86
+TARGET_LIB_DIR := lib
+TARGET_LIB_ARM_DIR := x86
 endif
 
 $(shell mkdir -p $(TARGET_OUT_SHARED_LIBRARIES))

@@ -31,6 +31,5 @@ Cons
 ```
  - We're now forced to use Google's prebuilt library, no local changes allowed.
    (But realistically who mods libwebviewchromium?)
- - Support is limited to arm/arm64 only for now.
    (Blame Google.)
 ```
